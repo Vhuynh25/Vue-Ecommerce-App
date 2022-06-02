@@ -16,28 +16,33 @@ const port = 3000
 app.use(cors())
 app.use(express.json())
 
-app.get('/products/:id', function (req, res)  {
-    db.get("SELECT * FROM products WHERE id = ?", req.query.id, (err, row) => 
-    {
-        if (err)
-        {
-            console.log(err)
-        }
-        else 
-            res.send({products: row})
-    })
-});
-
 app.get('/products', function (req, res)  {
-    db.all("SELECT * FROM products", (err, results) => 
+    if (req.query.id == null)
     {
-        if (err)
+        db.all("SELECT * FROM products", (err, results) => 
         {
-            console.log(err)
-        }
-        else 
-            res.send(results)
-    })
+            if (err)
+            {
+                console.log(err)
+                res.sendStatus(404)
+            }
+            else 
+                res.send(results)
+        })
+    }
+    else 
+    {
+        db.get("SELECT * FROM products WHERE id = ?", req.query.id, (err, row) => 
+        {
+            if (err)
+            {
+                console.log(err)
+                res.sendStatus(404)
+            }
+            else 
+                res.send(row)
+            })
+    }
 });
 
 app.post('/users', function (req, res)  {
