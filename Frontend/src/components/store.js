@@ -1,9 +1,9 @@
-import {reactive} from 'vue'
+import {reactive} from "vue"
 
 export const store = reactive({
-    username: null,
-    setUsername(name)
-    {
-        this.username = name
-    }
+	user: null,
+	setUsername(user)
+	{
+		this.user = user
+	}
 })

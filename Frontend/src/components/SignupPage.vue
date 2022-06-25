@@ -14,24 +14,44 @@
 
 <script setup>
 //import { store } from './store.js'
+import { defineEmits } from "vue"
+import {useRouter} from "vue-router"
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
+
+const emits = defineEmits(["login"])
+
+
+const router = useRouter()
+
 function signupUser()
 {
-    const email = document.getElementById("Email").value
-    const password = document.getElementById("Password").value
-    const name = document.getElementById("Name").value
+	const email = document.getElementById("Email").value
+	const password = document.getElementById("Password").value
+	const name = document.getElementById("Name").value
 
-    console.log(name + " " + password + " " + email)
+	console.log(name + " " + password + " " + email)
     
-    fetch(`http://localhost:3000/users?email="${email}"&username="${name}"&pass="${password}"`,     
-    {
-        method: 'POST',
-        headers:
-        {
-            "Accept": "application/json, text/plain, */*",
-            "Content-Type": "application/json"
-        },
-    })
-    .then(window.location.href = "#/login")
+	const auth = getAuth()
+	createUserWithEmailAndPassword(auth, email, password)
+		.then((userCredential) => {
+			const user = userCredential.user
+			updateProfile(auth.currentUser, {
+				displayName: name,})
+				.catch((error) => {
+					const errorMessage = error.message
+			        console.log(errorMessage)
+				})
+
+			console.log(user.email)
+			emits("login")
+			router.push("/profile")
+		})
+		.catch((error) => {
+			//const errorCode = error.code
+			const errorMessage = error.message
+			console.log(errorMessage)
+		})
+	
 }
 
 </script>

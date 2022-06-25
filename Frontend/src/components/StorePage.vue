@@ -11,11 +11,15 @@
 
 <script setup>
 import ProductCard from "./ProductCard.vue"
-import {ref, onMounted} from "vue"
+import {ref as vueRef, onMounted} from "vue"
 import {useRouter} from "vue-router"
 
+import { getDatabase, ref as dbRef, get, child} from "firebase/database"
+
 const router = useRouter()
-const products = ref([])
+const products = vueRef([])
+
+const db = dbRef(getDatabase())
 
 function visitProduct(id, image)
 {
@@ -23,15 +27,15 @@ function visitProduct(id, image)
 }
 
 onMounted(async () => {
-	let response = await fetch("http://localhost:3000/products")
-	if (response.ok)
-	{
-		products.value = await response.json()
-	}
-	else 
-	{
-		console.log(response.status)
-	}
+	get(child(db, "products")).then((snapshot) => {
+		if (snapshot.exists()) {
+			products.value = snapshot.val()
+		} else {
+			console.log("No data available")
+		}
+	}).catch((error) => {
+		console.error(error)
+	})
 })
 
 </script>

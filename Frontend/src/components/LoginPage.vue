@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+/* eslint-disable no-mixed-spaces-and-tabs */
 <template>
     <div class="login_panel">
         <h1>
@@ -12,34 +14,38 @@
 </template>
 
 <script setup>
-import { store } from './store.js'
+
+import { defineEmits } from "vue"
+import { store } from "./store.js"
+import {useRouter} from "vue-router"
+
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
+
+
+const emits = defineEmits(["login"])
+
+const router = useRouter()
 
 function loginUser()
 {
-    const email = document.getElementById("email").value
-    const password = document.getElementById("password").value
+	const email = document.getElementById("email").value
+	const password = document.getElementById("password").value
 
-    fetch("http://localhost:3000/users?email=" + email + "&pass=" + password,     
-    {
-        method: 'GET',
-        headers:
-        {
-            "Accept": "application/json, text/plain, */*",
-            "Content-Type": "application/json"
-        },
-    }).then(res => 
-    { 
-        if (res.status == 200) 
-        {
-            res.json().then(data => 
-            {
-                console.log(data.USERNAME)
-                store.setUsername(data.USERNAME)
-            })
-        }
-    })
-    .then(res => console.log(res))
-    .then(window.location.href = "#/profile")
+	const auth = getAuth()
+	signInWithEmailAndPassword(auth, email, password)
+		.then((userCredential) => {
+			// Signed in 
+			const user = userCredential.user
+			alert(user.email)
+			emits("login")
+			router.push("/profile")
+		})
+		.catch((error) => {
+			//const errorCode = error.code
+			const errorMessage = error.message
+			alert(errorMessage)
+		})
+
 }
 
 </script>
