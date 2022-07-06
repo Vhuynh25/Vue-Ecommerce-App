@@ -1,36 +1,46 @@
 <template>
     <div class="product-panel">
-        <p id="description">
+        <p id="description" class="product-description">
         </p>
-        <div>
-            <h1 id="name" class="product-name">
-            </h1>
-            <h2 id="price">
+        <div class="product-buying">
+            <h2 id="price" class="product-price">
             </h2>
+            <button class="buy-button" @click="addToShoppingCart()">Add to Cart</button>
         </div>
-        <img id="image" class="product-picture" :src="require(`../../public/img/${image}`)">
+        <h1 id="name" class="product-name">
+        </h1>
+        <img id="image" class="product-picture">
     </div>
 </template>
 
 <script setup>
+import {store} from "./store"
 import { defineProps, onMounted} from "vue"
+import { getDatabase, ref as dbRef, get, child} from "firebase/database"
 
-const props = defineProps(["id", "image"])
+const props = defineProps(["id"])
+const db = dbRef(getDatabase())
+
+function addToShoppingCart()
+{
+	store.pushShoppingList(props.id)
+	localStorage.setItem("shopping-cart", store.shoppingCart)
+	alert(localStorage.getItem("shopping-cart"))
+}
 
 onMounted(async () => {
-    
-	let response = await fetch("http://localhost:3000/products?id=" + props.id)
-	if (response.ok)
-	{
-		let row = await response.json()
-		document.getElementById("name").innerHTML = row.NAME
-		document.getElementById("price").innerHTML = row.PRICE
-		document.getElementById("description").innerHTML = row.DESCRIPTION
-	}
-	else 
-	{
-		console.log(response.status)
-	}
+	get(child(db, `Products/${props.id}`)).then((snapshot) => {
+		if (snapshot.exists()) {
+			document.getElementById("name").innerHTML = snapshot.val().name
+		    document.getElementById("price").innerHTML = `$${snapshot.val().price}`
+			document.getElementById("description").innerHTML = snapshot.val().description
+			document.getElementById("image").src = `${process.env.BASE_URL}img/${snapshot.val().image}`
+		} else {
+			alert("No data available")
+		}
+	}).catch((error) => {
+		alert(error)
+	})
 })
 </script>
 
@@ -39,12 +49,13 @@ onMounted(async () => {
 {
     display: flex;
     flex-direction: column-reverse;
-    width: 50%;
+    width: 40%;
     border: 2px solid;
+    margin-top: auto;
     margin-left: auto;
     margin-right: auto;
     background-color: silver;
-    height: 500px;
+    height: 400px;
 }
 
 .product-picture
@@ -58,6 +69,35 @@ onMounted(async () => {
 .product-name
 {
     color: black;
+}
+
+.product-description
+{
+    margin: auto;
+    color: black;
+}
+
+.product-price
+{
+    margin: auto;
+    color: black;
+}
+
+.product-buying
+{
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    height: 400px;
+    justify-content: space-between;
+    width: 50%;
+}
+
+.buy-button
+{
+    min-width: 80px;
+    min-height: 40px;
+    margin: auto;
 }
 
 </style>

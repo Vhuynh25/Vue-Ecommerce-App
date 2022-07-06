@@ -6,7 +6,7 @@
   <router-link class="link" to="/profile">Profile</router-link>
   <h1 class="link" id="username" > </h1>
   </header>
-  <router-view @login="displayUsername()"/>
+  <router-view/>
 </template>
 
 <script setup>
@@ -45,16 +45,16 @@ const auth = getAuth()
 
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-function displayUsername()
-{
-	onAuthStateChanged(auth, (user) => {
-		if (user) {
+onAuthStateChanged(auth, (user) => {
+	if (user) {
 		// User is signed in, see docs for a list of available properties
 		// https://firebase.google.com/docs/reference/js/firebase.User
+		if (user.displayName)
+			  document.getElementById("username").innerHTML = user.displayName
+		else
 			document.getElementById("username").innerHTML = user.email
-		}
-	})
-}
+	}
+})
 
 </script>
 

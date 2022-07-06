@@ -1,10 +1,10 @@
 <template>
     <div class="store-grid">
         <ProductCard v-for="product in products"
-        v-bind:key="product.ID"
-        v-bind:name="product.NAME"
-        v-bind:image="product.IMAGE"
-        @click="visitProduct(product.ID,product.IMAGE)"
+        v-bind:key="product.id"
+        v-bind:name="product.name"
+        v-bind:image="product.image"
+        @click="visitProduct(product.id)"
         />
     </div>
 </template>
@@ -23,18 +23,18 @@ const db = dbRef(getDatabase())
 
 function visitProduct(id, image)
 {
-	router.push(`/product/${id}/${image}`)
+	router.push(`/product/${id}`)
 }
 
 onMounted(async () => {
-	get(child(db, "products")).then((snapshot) => {
+	get(child(db, "Products")).then((snapshot) => {
 		if (snapshot.exists()) {
 			products.value = snapshot.val()
 		} else {
-			console.log("No data available")
+			alert("No data available")
 		}
 	}).catch((error) => {
-		console.error(error)
+		alert(error)
 	})
 })
 

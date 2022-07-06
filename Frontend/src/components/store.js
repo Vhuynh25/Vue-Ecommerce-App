@@ -1,9 +1,18 @@
 import {reactive} from "vue"
 
 export const store = reactive({
-	user: null,
-	setUsername(user)
+	userEmail: null,
+	shoppingCart: [],
+	setShoppingList(list)
 	{
-		this.user = user
+		this.shoppingCart = list
+	},
+	pushShoppingList(itemId)
+	{
+		this.shoppingCart.push(itemId)
+	},
+	setUsername(email)
+	{
+		this.userEmail = email
 	}
 })

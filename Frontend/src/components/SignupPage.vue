@@ -14,12 +14,8 @@
 
 <script setup>
 //import { store } from './store.js'
-import { defineEmits } from "vue"
 import {useRouter} from "vue-router"
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
-
-const emits = defineEmits(["login"])
-
 
 const router = useRouter()
 
@@ -43,7 +39,6 @@ function signupUser()
 				})
 
 			console.log(user.email)
-			emits("login")
 			router.push("/profile")
 		})
 		.catch((error) => {
