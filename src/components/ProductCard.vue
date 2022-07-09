@@ -1,9 +1,11 @@
 <template>
-    <div class="product-card">
-        <img class="product-picture" :src="require(`../../public/img/${image}`)">
-        <h1 class="product-name">
-            {{name}}
-        </h1>
+    <div class="card">
+        <img class="card-img-top" :src="require(`../../public/img/${image}`)">
+        <div class="card-body">
+            <h1 class="card-title">
+                {{name}}
+            </h1>
+        </div>
     </div>
 </template>
 

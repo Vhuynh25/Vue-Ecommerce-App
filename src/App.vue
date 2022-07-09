@@ -1,4 +1,5 @@
 <template>
+<div>
   <header class="header">
   <router-link class="link" to="/login" >Login</router-link>
   <router-link class="link" to="/signup">Sign up</router-link>
@@ -6,7 +7,8 @@
   <router-link class="link" to="/profile">Profile</router-link>
   <h1 class="link" id="username" > </h1>
   </header>
-  <router-view/>
+  <router-view class="bg-secondary mx-auto"/>
+</div>
 </template>
 
 <script setup>
@@ -88,6 +90,12 @@ onAuthStateChanged(auth, (user) => {
   margin: auto;
   color: white;
   padding: 10px;
+}
+
+.view
+{
+  background-color: rgb(95, 95, 95);
+  margin: auto;
 }
 
 html

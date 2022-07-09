@@ -1,15 +1,23 @@
 /* eslint-disable indent */
 /* eslint-disable no-mixed-spaces-and-tabs */
 <template>
-    <div class="login_panel">
-        <h1>
+    <div class="">
+        <h1 class="text-light">
             LOGIN
         </h1>
-        <input class="email_input" id="email" placeholder="Email">
-        <input type="password" class="password_input" id="password" placeholder="Password">
-        <button class="login_button" @click="loginUser">
-            LOGIN
-        </button>
+        <form class="w-50 mx-auto">
+            <div class="form-group">
+                <input class="form-control" id="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <button class="form-control" @click="loginUser">
+                    LOGIN
+                </button>
+            </div>
+        </form>
     </div>
 </template>
 
@@ -52,7 +60,7 @@ function loginUser()
     flex-direction: column;
     width: 60%;
     border: 2px solid;
-    margin: auto;
+    margin: 14px;
     background-color: silver
 }
 

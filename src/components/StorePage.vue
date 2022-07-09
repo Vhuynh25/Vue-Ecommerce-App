@@ -1,10 +1,11 @@
 <template>
-    <div class="store-grid">
+    <div class="d-inline-flex">
         <ProductCard v-for="product in products"
         v-bind:key="product.id"
         v-bind:name="product.name"
         v-bind:image="product.image"
         @click="visitProduct(product.id)"
+        class="col-sm-3"
         />
     </div>
 </template>
@@ -45,5 +46,6 @@ onMounted(async () => {
 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin: 14px;
 }
 </style>

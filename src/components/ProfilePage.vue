@@ -1,15 +1,15 @@
 <template>
-    <div class="main">
-		<div class="profile_panel">
-        <h1 id="usertext">
-            Hello, Please sign in.
-        </h1>
-        <div class="name_change">
-            <input class="name_change-box" id="name-change-box" type="text">
-            <button class="name_change_button" @click="changeDisplayName()">Change display name</button>
-        </div>
+    <div class="d-inline-flex">
+		<div class="col-sm-9 ml-5">
+        	<h1 class="text-light" id="usertext">
+            	Hello, Please sign in.
+        	</h1>
+        	<div class="">
+            	<input class="" id="name-change-box" type="text">
+            	<button class="" @click="changeDisplayName()">Change display name</button>
+        	</div>
 		</div>
-		<ShoppingCart class="shopping_cart"></ShoppingCart>
+		<ShoppingCart class=""></ShoppingCart>
     </div>
 </template>
 
@@ -58,7 +58,7 @@ onAuthStateChanged(auth, (user) => {
     flex-direction: column;
     width: 60%;
     border: 2px solid;
-    margin: auto;
+    margin: 14px;
     background-color: silver
 }
 

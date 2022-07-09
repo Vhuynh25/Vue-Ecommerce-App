@@ -51,9 +51,7 @@ onMounted(async () => {
     flex-direction: column-reverse;
     width: 40%;
     border: 2px solid;
-    margin-top: auto;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 14px;
     background-color: silver;
     height: 400px;
 }

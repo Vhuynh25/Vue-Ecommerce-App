@@ -1,14 +1,14 @@
 <template>
-	<div class="shopping_cart">
-    <div class="products">
+	<div class="col-sm-2 h-10">
+    	<div class="products">
         <ProductCard v-for="product in products"
         v-bind:key="product.id"
         v-bind:name="product.name"
         v-bind:image="product.image"
         @click="visitProduct(product.id)"
         />
-    </div>
-	<button class="clear_button" @click="clearShoppingCart()">Clear Shopping Cart</button>
+    	</div>
+		<button class="clear_button" @click="clearShoppingCart()">Clear Shopping Cart</button>
 	</div>
 </template>
 
@@ -76,6 +76,7 @@ onMounted(async () => {
 {
 	display: flex;
     flex-direction: column;
+	margin: 14px;
 }
 
 </style>
