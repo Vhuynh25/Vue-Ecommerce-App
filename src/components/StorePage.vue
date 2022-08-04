@@ -1,5 +1,5 @@
 <template>
-    <div class="d-inline-flex">
+    <div class="d-inline-flex flex-wrap">
         <ProductCard v-for="product in products"
         v-bind:key="product.id"
         v-bind:name="product.name"
