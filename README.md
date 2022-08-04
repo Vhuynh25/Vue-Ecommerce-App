@@ -30,3 +30,5 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+![Alt text](/src/assets/frontend%20sign-in%20page.png?raw=true "Sign in")
