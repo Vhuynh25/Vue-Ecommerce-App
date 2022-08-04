@@ -1,5 +1,13 @@
 # frontend
 
+```
+This project is the frontend of a project I used to learn Vue.js. 
+
+The backend runs on firebase
+
+This project is deployed at https://vhuynh25.github.io/Vue-Ecommerce-App/
+```
+
 ## Project setup
 ```
 npm install
